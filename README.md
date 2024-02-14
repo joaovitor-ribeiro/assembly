@@ -9,6 +9,8 @@ Conter o MongoDB instalado. Obter o MongoDB no site https://www.mongodb.com/try/
 
 Conter o java versão 17. Obter o java no site https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 
+Conter o lombok. Obter o lombok no site https://projectlombok.org/download
+
 ## Instalação
 
 Clonar o projeto
