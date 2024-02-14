@@ -16,9 +16,9 @@ Conter o lombok. Obter o lombok no site https://projectlombok.org/download
 Clonar o projeto
 
 ```bash
-  git clone https://github.com/joaovitor-ribeiro/controle-financeiro-mongodb.git
+  git clone https://github.com/joaovitor-ribeiro/assembly.git
 ```
-Importar o controle-financeiro-back como projeto maven na IDE de sua preferência
+Importar o projeto como maven na IDE de sua preferência
 
 Abrir a pasta docker do projeto e executar o comando abaixo no cmd 
 
