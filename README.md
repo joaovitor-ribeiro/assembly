@@ -3,6 +3,7 @@
 Projeto para gerenciar sessões de votações em pautas de assembleia atráves de uma API REST. 
 
 ## Tecnologias
+
 Java 17
 
 Spring Boot
@@ -54,7 +55,7 @@ Executar a classe AssemblyApplication como Java Application
 
 Link para acesso do Swagger: http://localhost:8080/swagger-ui/index.html#/
 
-## Rodando os testes
+## Testes
 
 Para rodar os testes unitários, execute o package service com junit.
 
@@ -63,3 +64,7 @@ Para rodar os testes de API, execute o package api com junit.
 ## Versão
 
 O projeto se encontra na versão 1, contrado atráves da URL das requisições. Caso seja feita uma nova versão a URL das requisições será atualizada. 
+
+## Kafka
+
+Utilizado o kafka para o processamento dos votos de sessões expiradas.
