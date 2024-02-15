@@ -1,59 +1,31 @@
 package com.br.assembly.api;
 
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.port;
 
 import java.util.List;
 
 import org.apache.http.HttpStatus;
 import org.bson.types.ObjectId;
-import org.junit.BeforeClass;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 
 import com.br.assembly.controller.schedule.ScheduleController;
 import com.br.assembly.dto.schedule.ScheduleRequest;
 import com.br.assembly.dto.schedule.ScheduleResponse;
 import com.br.assembly.service.schedule.ScheduleService;
 
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 
 
 @WebMvcTest(ScheduleController.class)
-public class ScheduleControllerTest {
-	
-	private static final String  BASEURI = "http://localhost/assembly/v1/schedule";
-	private static final Integer PORT    = 8080;
+public class ScheduleControllerTest extends RestAssuredTest {
 	
 	@MockBean
 	private ScheduleService service;
-	
-	@Autowired
-	private MockMvc mockMvc;
-	
-	
-	@BeforeClass
-    public static void setup() {
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-    }
-	
-	@BeforeEach
-	public void beforeEach() {
-		baseURI = BASEURI;
-		port = PORT;
-		
-		RestAssuredMockMvc.mockMvc(mockMvc);
-		RestAssuredMockMvc.basePath = BASEURI;
-	}
 	
 	@Test
 	@DisplayName("Create schedule with description null")
@@ -64,7 +36,7 @@ public class ScheduleControllerTest {
 			.contentType(ContentType.JSON)
 			.body(requestBody)
 		.when()
-			.post("create")
+			.post("schedule/create")
 		.then()
 			.statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
 	}
@@ -78,7 +50,7 @@ public class ScheduleControllerTest {
 			.contentType(ContentType.JSON)
 			.body(requestBody)
 		.when()
-			.post("create")
+			.post("schedule/create")
 		.then()
 			.statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
 	}
@@ -94,7 +66,7 @@ public class ScheduleControllerTest {
 						  		.contentType(ContentType.JSON)
 						  		.body(requestBody)
 						   .when()
-								.post("create")
+								.post("schedule/create")
 						   .then()
 								.statusCode(HttpStatus.SC_CREATED);
 	}
@@ -108,7 +80,7 @@ public class ScheduleControllerTest {
 		RestAssuredMockMvc.given()
 						  		.contentType(ContentType.JSON)
 						  .when()
-						  		.get("list/all")
+						  		.get("schedule/list/all")
 						  .then()
 						  		.statusCode(HttpStatus.SC_OK);
 	}
@@ -123,7 +95,7 @@ public class ScheduleControllerTest {
 		RestAssuredMockMvc.given()
 						  		.contentType(ContentType.JSON)
 						  .when()
-						  		.get("/list/" + id.toHexString())
+						  		.get("schedule/list/" + id.toHexString())
 						  .then()
 						  		.statusCode(HttpStatus.SC_OK);
 	}

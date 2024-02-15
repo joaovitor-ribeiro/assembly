@@ -1,20 +1,14 @@
 package com.br.assembly.api;
 
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.port;
 
 import org.apache.http.HttpStatus;
 import org.bson.types.ObjectId;
-import org.junit.BeforeClass;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 
 import com.br.assembly.controller.votingsession.VotingSessionController;
 import com.br.assembly.dto.votingsession.VoteRequest;
@@ -23,35 +17,14 @@ import com.br.assembly.dto.votingsession.VotingSessionRequest;
 import com.br.assembly.dto.votingsession.VotingSessionResponse;
 import com.br.assembly.service.votingsession.VotingSessionService;
 
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 
 @WebMvcTest(VotingSessionController.class)
-public class VotingSessionControllerTest {
-	
-	private static final String  BASEURI = "http://localhost/assembly/v1/session";
-	private static final Integer PORT    = 8080;
+public class VotingSessionControllerTest extends RestAssuredTest {
 	
 	@MockBean
 	private VotingSessionService service;
-	
-	@Autowired
-	private MockMvc mockMvc;
-	
-	@BeforeClass
-    public static void setup() {
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-    }
-	
-	@BeforeEach
-	public void beforeEach() {
-		baseURI = BASEURI;
-		port = PORT;
-		
-		RestAssuredMockMvc.mockMvc(mockMvc);
-		RestAssuredMockMvc.basePath = BASEURI;
-	}
 	
 	@Test
 	@DisplayName("Open session without id")
@@ -62,7 +35,7 @@ public class VotingSessionControllerTest {
 			.contentType(ContentType.JSON)
 			.body(requestBody)
 		.when()
-			.post("open")
+			.post("session/open")
 		.then()
 			.statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
 	}
@@ -82,7 +55,7 @@ public class VotingSessionControllerTest {
 						  		.contentType(ContentType.JSON)
 						  		.body(requestBody)
 						  .when()
-						  		.post("open")
+						  		.post("session/open")
 						  .then()
 						  		.statusCode(HttpStatus.SC_CREATED);
 	}
@@ -96,7 +69,7 @@ public class VotingSessionControllerTest {
 			.contentType(ContentType.JSON)
 			.body(requestBody)
 		.when()
-			.put("submit/vote")
+			.put("session/submit/vote")
 		.then()
 			.statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
 	}
@@ -111,7 +84,7 @@ public class VotingSessionControllerTest {
 			.contentType(ContentType.JSON)
 			.body(requestBody)
 		.when()
-			.put("submit/vote")
+			.put("session/submit/vote")
 		.then()
 			.statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
 	}
@@ -126,7 +99,7 @@ public class VotingSessionControllerTest {
 			.contentType(ContentType.JSON)
 			.body(requestBody)
 		.when()
-			.put("submit/vote")
+			.put("session/submit/vote")
 		.then()
 			.statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
 	}
@@ -143,7 +116,7 @@ public class VotingSessionControllerTest {
 		RestAssuredMockMvc.given()
 						  		.contentType(ContentType.JSON)
 						  .when()
-						  		.get("/result/vote/" + idVotingSession.toHexString())
+						  		.get("session/result/vote/" + idVotingSession.toHexString())
 						  .then()
 						  		.statusCode(HttpStatus.SC_OK);
 	}
