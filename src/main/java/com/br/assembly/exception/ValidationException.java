@@ -1,6 +1,6 @@
 package com.br.assembly.exception;
 
-public class ValidationException extends RuntimeException{
+public class ValidationException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	

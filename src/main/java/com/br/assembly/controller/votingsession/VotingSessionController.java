@@ -45,6 +45,7 @@ public class VotingSessionController {
 			@ApiResponse(responseCode = "201", description = "Voting session successfully created") })
 	@RequestMapping(method = RequestMethod.POST, path = "/open")
 	public ResponseEntity<VotingSessionResponse> openSession(@RequestBody @Valid VotingSessionRequest sessionRecord) throws URISyntaxException {
+		
 		VotingSessionResponse response = votingSessionService.openSession(sessionRecord);
 		
 		return ResponseEntity.created(new URI(response.id())).body(response);
@@ -55,9 +56,10 @@ public class VotingSessionController {
 			@ApiResponse(responseCode = "200", description = "Vote successfully submit") })
 	@RequestMapping(method = RequestMethod.PUT, path = "/submit/vote")
 	public ResponseEntity<Void> voteSubmit(@RequestBody @Valid VoteRequest voteRecord) throws URISyntaxException {
+		
 		votingSessionService.voteSubmit(voteRecord);
 		
-		return ResponseEntity.ok(null);
+		return new ResponseEntity<Void>( HttpStatus.OK );
 	}
 	
 	@ResponseStatus(code = HttpStatus.OK)
@@ -65,6 +67,7 @@ public class VotingSessionController {
 			@ApiResponse(responseCode = "200", description = "Result vote") })
 	@RequestMapping(method = RequestMethod.GET, path = "/result/vote/{idSession}")
 	public ResponseEntity<VoteResultResponse> resultVote(@PathVariable ObjectId idSession) throws URISyntaxException {
+		
 		VoteResultResponse response = votingSessionService.resultVote(idSession);
 		
 		return ResponseEntity.ok(response);

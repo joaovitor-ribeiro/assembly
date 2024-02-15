@@ -17,6 +17,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 		return new OpenAPI()
 				.components(new Components())
 				.info(new Info()
+						.description("Projeto para gerenciar sessões de votações em pautas de assembleia.")
 						.title("Assembly")
 						.contact(new Contact().name("Assembly"))
 						.version("1.0.0"));

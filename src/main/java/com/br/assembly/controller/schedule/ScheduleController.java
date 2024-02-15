@@ -45,7 +45,9 @@ public class ScheduleController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Successful operation") })
 	public ResponseEntity<ScheduleResponse> listOne(@PathVariable ObjectId id) throws URISyntaxException {
+		
 		ScheduleResponse response = scheduleService.listOne(id);
+		
 		return ResponseEntity.ok(response);
 	}
 	
@@ -54,7 +56,9 @@ public class ScheduleController {
 			@ApiResponse(responseCode = "200", description = "Successful operation") })
 	@RequestMapping(method = RequestMethod.GET, path = "/list/all")
 	public ResponseEntity<List<ScheduleResponse>> listAll() throws URISyntaxException {
+		
 		List<ScheduleResponse> response = scheduleService.listAll();
+		
 		return ResponseEntity.ok(response);
 	}
 	
@@ -63,7 +67,9 @@ public class ScheduleController {
 			@ApiResponse(responseCode = "201", description = "Schedule successfully created") })
 	@RequestMapping(method = RequestMethod.POST, path = "/create")
 	public ResponseEntity<ScheduleResponse> create(@RequestBody @Valid ScheduleRequest scheduleRecord) throws URISyntaxException {
+		
 		ScheduleResponse response = scheduleService.create(scheduleRecord);
+		
 		return ResponseEntity.created(new URI(response.id())).body(response);
 	}
 
